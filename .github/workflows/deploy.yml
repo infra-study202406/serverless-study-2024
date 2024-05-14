@@ -32,5 +32,5 @@ jobs:
       - name: lambda update
         run: |
           pip3 install awscli
-          cd src && zip -r package.zip ./*
+          cd app && zip -r package.zip ./*
           aws lambda update-function-code --function-name lambda_github_action_test --zip-file fileb://package.zip --publish
