@@ -47,4 +47,4 @@ jobs:
       - name: release-deploy
       #working-directoryでディレクトリの指定ができるらしい。（https://stackoverflow.com/questions/58139175/running-actions-in-another-directory）
         working-directory: ./app
-        run: cargo lambda deploy --binary-path ./target/app/bootstrap lambda_github_action_test
+        run: cargo lambda deploy lambda_github_action_test
