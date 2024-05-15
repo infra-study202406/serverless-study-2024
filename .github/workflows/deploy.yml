@@ -23,14 +23,28 @@ jobs:
 
       - name: get-caller-identity is allowed to run on role.
         run: aws sts get-caller-identity
-
-      - name: setup-python
-        uses: actions/setup-python@v3
+      
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+      
+      - name: Install Zig toolchain
+        uses: korandoru/setup-zig@v1
         with:
-          python-version: '3.x'
+          zig-version: 0.10.0
 
-      - name: lambda update
-        run: |
-          pip3 install awscli
-          cd app && zip -r package.zip ./*
-          aws lambda update-function-code --function-name lambda_github_action_test --zip-file fileb://package.zip --publish
+      - name: Install Cargo Lambda
+        uses: jaxxstorm/action-install-gh-release@v1.9.0
+        with:
+          repo: cargo-lambda/cargo-lambda
+          tag: v0.14.0 # Remove this if you want to grab always the latest version
+          platform: linux # Other valid options: 'windows' or 'darwin'
+          arch: x86_64 # Other valid options for linux: 'aarch64'
+      # Add your build steps below
+      - name: change-release-folder
+        run: cd app
+
+      - name: release-build
+        run: cargo lambda build --release
+      
+      - name: release-deploy
+        run: cargo lambda deploy --binary-path PATH_TO_BOOTSTRAP_FILE lambda_github_action_test
