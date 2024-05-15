@@ -40,11 +40,8 @@ jobs:
           platform: linux # Other valid options: 'windows' or 'darwin'
           arch: x86_64 # Other valid options for linux: 'aarch64'
       # Add your build steps below
-      - name: change-release-folder
-        run: cd ./app | pwd
-
       - name: release-build
-        run: cargo lambda build --release
+        run: cd app | cargo lambda build --release
       
       - name: release-deploy
-        run: cargo lambda deploy --binary-path PATH_TO_BOOTSTRAP_FILE lambda_github_action_test
+        run: cargo lambda deploy --binary-path ./app/target/app/bootstrap lambda_github_action_test
