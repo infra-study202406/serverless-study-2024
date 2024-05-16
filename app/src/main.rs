@@ -6,6 +6,6 @@ use lambda_runtime::{
 
 #[tokio::main]
 async fn main() -> Result<(), Error>{
-    println!("Hello, world!");
+    println!("Hello, world!!");
     Ok(())
 }
