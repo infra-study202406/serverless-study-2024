@@ -44,6 +44,7 @@ jobs:
         working-directory: ./app
         run: |
           cargo lambda build --release
+          ls target
       
       - name: release-deploy
       #working-directoryでディレクトリの指定ができるらしい。（https://stackoverflow.com/questions/58139175/running-actions-in-another-directory）
