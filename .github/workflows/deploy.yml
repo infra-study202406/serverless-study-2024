@@ -50,4 +50,4 @@ jobs:
       #working-directoryでディレクトリの指定ができるらしい。（https://stackoverflow.com/questions/58139175/running-actions-in-another-directory）
         working-directory: app
         run: |
-          cargo lambda deploy --binary-name app lambda_github_action_test
+          cargo lambda deploy --binary-name app --iam-role ${{ secrets.LAMBDA_IAM_ROLE }} lambda_github_action_test
