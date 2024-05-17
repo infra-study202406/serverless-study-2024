@@ -3,7 +3,6 @@ use lambda_runtime::{
     LambdaEvent, 
     Error};
 //use serde::{Deserialize, Serialize};
-use serde_json::{json, Value};
 use tokio;
 
 #[tokio::main]
