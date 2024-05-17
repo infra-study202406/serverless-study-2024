@@ -8,5 +8,5 @@ use tokio;
 #[tokio::main]
 async fn main() -> Result<(), Error>{
     println!("Hello, world!!");
-    Ok(())
+    Ok(json!({ "message": "Hello, world!!", "input": event }))
 }
