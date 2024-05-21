@@ -1,8 +1,4 @@
-use lambda_runtime::{ 
-    service_fn,
-    Error,
-    LambdaEvent
-};
+use lambda_runtime::{service_fn, Error, LambdaEvent};
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize)]
@@ -16,16 +12,15 @@ struct Response {
 }
 
 #[tokio::main]
-async fn main() -> Result<(), Error>{
+async fn main() -> Result<(), Error> {
     lambda_runtime::run(service_fn(handler)).await
 }
 
-async fn handler(event: LambdaEvent<Request>) -> Result<Response,Error> {
+async fn handler(event: LambdaEvent<Request>) -> Result<Response, Error> {
     let first_name = event.payload.first_name;
     let respons = Response {
-        message: format!("Hello, {first_name}!")
+        message: format!("Hello, {first_name}!"),
     };
-    
-    Ok(respons)
 
+    Ok(respons)
 }
