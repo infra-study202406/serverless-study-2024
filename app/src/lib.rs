@@ -1,10 +1,7 @@
-pub mod handler{
-    use serde::{
-            Deserialize,
-        };
+pub mod handler {
     use lambda_runtime::LambdaEvent;
-    use serde_json::{json,Value};
-
+    use serde::Deserialize;
+    use serde_json::{json, Value};
 
     #[derive(Deserialize)]
     pub struct LambdaEventPayload {
@@ -15,27 +12,30 @@ pub mod handler{
         pub message: String,
     }
 
-    pub async fn lamdba_handler(event: LambdaEvent<LambdaEventPayload>) -> Result<(),lambda_runtime::Error> {
+    pub async fn lamdba_handler(
+        event: LambdaEvent<LambdaEventPayload>,
+    ) -> Result<(), lambda_runtime::Error> {
         let payload = event.payload;
         execute(payload).await?;
         Ok(())
-
     }
-    
-    pub(crate) async fn execute(payload: LambdaEventPayload) ->Result<Value,lambda_runtime::Error> {
+
+    pub(crate) async fn execute(
+        payload: LambdaEventPayload,
+    ) -> Result<Value, lambda_runtime::Error> {
         let first_name = payload.first_name;
         let response = Response {
-            message: format!("Hello, {first_name}!")
+            message: format!("Hello, {first_name}!"),
         };
-        
+
         Ok(json!({"message": response.message}))
     }
-    
+
     #[cfg(test)]
-    mod test { 
+    mod test {
 
         use super::*;
-        
+
         #[tokio::test]
         async fn handler_test() {
             let name = LambdaEventPayload {
@@ -44,6 +44,5 @@ pub mod handler{
             let result = execute(name).await;
             assert!(result.is_ok());
         }
-
-    }   
+    }
 }
