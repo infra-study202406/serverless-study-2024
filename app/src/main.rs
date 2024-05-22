@@ -1,26 +1,11 @@
-use lambda_runtime::{service_fn, Error, LambdaEvent};
-use serde::{Deserialize, Serialize};
+use lambda_runtime::{ 
+    service_fn,
+    Error
+};
 
-#[derive(Deserialize)]
-struct Request {
-    first_name: String,
-}
-
-#[derive(Serialize)]
-struct Response {
-    message: String,
-}
+use app::handler;
 
 #[tokio::main]
-async fn main() -> Result<(), Error> {
-    lambda_runtime::run(service_fn(handler)).await
-}
-
-async fn handler(event: LambdaEvent<Request>) -> Result<Response, Error> {
-    let first_name = event.payload.first_name;
-    let respons = Response {
-        message: format!("Hello, {first_name}!"),
-    };
-
-    Ok(respons)
+async fn main() -> Result<(), Error>{
+    lambda_runtime::run(service_fn(handler::lamdba_handler)).await
 }

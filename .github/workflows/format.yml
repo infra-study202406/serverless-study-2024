@@ -15,6 +15,11 @@ jobs:
 
             - name: Install Rust toolchain
               uses: dtolnay/rust-toolchain@stable
+
+            - name: test
+              working-directory: app
+              run: | 
+                cargo test
             
             - name: rustfmt install
               run: rustup component add rustfmt
@@ -27,3 +32,5 @@ jobs:
               uses: stefanzweifel/git-auto-commit-action@v5
               with:
                 commit_message: Apply Code Formatter
+            
+            
