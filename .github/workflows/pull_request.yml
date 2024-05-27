@@ -1,0 +1,42 @@
+name: Clippy Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  clippy-check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: app
+    permissions:
+      pull-requests: write
+      
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+        components: clippy
+
+    - name: Run Clippy
+      run: |
+        cargo clippy --all-targets --all-features -- -D warnings > clippy-output.txt
+
+    - name: Post Clippy result as comment
+      if: failure()
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        header: clippy-check
+        message: |
+          ### Clippy found issues:
+          ```diff
+          ${cat clippy-output.txt}
+          ```

@@ -1,0 +1,36 @@
+name: lamdba_github_pull_request_format
+run-name: ${{ github.actor}} is pullrequest formatter
+on: 
+    push:
+        branches:
+            - develop 
+jobs:
+    code-format:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - name: checkout
+              uses: actions/checkout@v3
+
+            - name: Install Rust toolchain
+              uses: dtolnay/rust-toolchain@stable
+
+            - name: test
+              working-directory: app
+              run: | 
+                cargo test
+            
+            - name: rustfmt install
+              run: rustup component add rustfmt
+
+            - name: format
+              working-directory: app
+              run: cargo fmt
+            
+            - name: auto-commit
+              uses: stefanzweifel/git-auto-commit-action@v5
+              with:
+                commit_message: Apply Code Formatter
+            
+            
