@@ -8,7 +8,13 @@ on:
 jobs:
   clippy-check:
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        shell: bash
+        working-directory: app
+    permissions:
+      pull-requests: write
+      
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
