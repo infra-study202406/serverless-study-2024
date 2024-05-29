@@ -14,10 +14,10 @@ pub mod handler {
 
     pub async fn lamdba_handler(
         event: LambdaEvent<LambdaEventPayload>,
-    ) -> Result<(), lambda_runtime::Error> {
+    ) -> Result<Value, lambda_runtime::Error> {
         let payload = event.payload;
-        execute(payload).await?;
-        Ok(())
+        let reult = execute(payload).await?;
+        Ok(reult)
     }
 
     pub(crate) async fn execute(
