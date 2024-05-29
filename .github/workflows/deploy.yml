@@ -51,7 +51,6 @@ jobs:
         run: |
           cargo test --verbose
 
-      
       - name: release-deploy
       #working-directoryでディレクトリの指定ができるらしい。（https://stackoverflow.com/questions/58139175/running-actions-in-another-directory）
         working-directory: app

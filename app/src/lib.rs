@@ -44,5 +44,14 @@ pub mod handler {
             let result = execute(name).await;
             assert!(result.is_ok());
         }
+
+        #[tokio::test]
+        async fn handler_test_tanoue() {
+            let name = LambdaEventPayload {
+                first_name: 1,
+            };
+            let result = execute(name).await;
+            assert!(result.is_ok());
+        }
     }
 }
