@@ -43,7 +43,7 @@ pub mod handler {
         };
 
         let response = Response {
-            message: format!("Hello, {first_name}!"),
+            message: format!("あなたは{first_name}、私は{computer_choice}"),
         };
 
         Ok(json!({"message": response.message, "result": result}))
