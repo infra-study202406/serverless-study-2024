@@ -1,8 +1,8 @@
 pub mod handler {
     use lambda_runtime::LambdaEvent;
+    use rand::Rng;
     use serde::Deserialize;
     use serde_json::{json, Value};
-    use rand::Rng;
 
     #[derive(Deserialize)]
     pub struct LambdaEventPayload {
@@ -28,13 +28,17 @@ pub mod handler {
         let choices = ["グー", "チョキ", "パー"];
         let mut rng = rand::thread_rng();
         let computer_choice = choices[rng.gen_range(0..choices.len())];
-        
+
         let first_name = payload.first_name.as_str();
 
         // 勝負の結果を判定
         let result = match (first_name, computer_choice) {
-            ("グー", "チョキ") | ("チョキ", "パー") | ("パー", "グー") => "あなたの勝ちです！",
-            ("グー", "パー") | ("チョキ", "グー") | ("パー", "チョキ") => "あなたの負けです。",
+            ("グー", "チョキ") | ("チョキ", "パー") | ("パー", "グー") => {
+                "あなたの勝ちです！"
+            }
+            ("グー", "パー") | ("チョキ", "グー") | ("パー", "チョキ") => {
+                "あなたの負けです。"
+            }
             _ => "引き分けです。",
         };
 
