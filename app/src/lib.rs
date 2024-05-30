@@ -84,9 +84,9 @@ pub mod handler {
         let result = user_hand.judge(&opponent_hand);
         
         let response = Response {
-            reult: format!("{reult}"),
-            user_hand: format!("{user_hand}"),
-            opponent_hand: format!("{opponent_hand}"),
+            pub reult: format!("{reult}"),
+            pub user_hand: format!("{user_hand}"),
+            pub opponent_hand: format!("{opponent_hand}"),
         };
 
         Ok(json!({"reult": response.reult, "user_hand": response.user_hand, "opponent_hand": response.opponent_hand}))
