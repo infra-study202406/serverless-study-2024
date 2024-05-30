@@ -3,7 +3,8 @@ run-name: ${{ github.actor}} is pullrequest formatter
 on: 
     push:
         branches:
-            - develop 
+            - develop
+            - sanada-test
 jobs:
     code-format:
         runs-on: ubuntu-latest
