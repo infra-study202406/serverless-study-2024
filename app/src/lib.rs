@@ -1,5 +1,6 @@
 pub mod handler {
     use lambda_runtime::LambdaEvent;
+    use rand::Rng;
     use serde::Deserialize;
     use serde_json::{json, Value};
 
@@ -23,12 +24,29 @@ pub mod handler {
     pub(crate) async fn execute(
         payload: LambdaEventPayload,
     ) -> Result<Value, lambda_runtime::Error> {
-        let first_name = payload.first_name;
+        // コンピュータの手をランダムに選択
+        let choices = ["グー", "チョキ", "パー"];
+        let mut rng = rand::thread_rng();
+        let computer_choice = choices[rng.gen_range(0..choices.len())];
+
+        let first_name = payload.first_name.as_str();
+
+        // 勝負の結果を判定
+        let result = match (first_name, computer_choice) {
+            ("グー", "チョキ") | ("チョキ", "パー") | ("パー", "グー") => {
+                "あなたの勝ちです！"
+            }
+            ("グー", "パー") | ("チョキ", "グー") | ("パー", "チョキ") => {
+                "あなたの負けです。"
+            }
+            _ => "引き分けです。",
+        };
+
         let response = Response {
             message: format!("Hello, {first_name}!"),
         };
 
-        Ok(json!({"message": response.message}))
+        Ok(json!({"message": response.message, "result": result}))
     }
 
     #[cfg(test)]
