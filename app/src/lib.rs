@@ -46,7 +46,7 @@ pub mod handler {
             message: format!("あなたは{first_name}、私は{computer_choice}です"),
         };
 
-        Ok(json!({"user_choice": first_name, "computer_choice":computer_choice, "result": result}))
+        Ok(json!({"user_choice": first_name, "computer_choice":computer_choice, "result": result, "message": response.message}))
     }
 
     #[cfg(test)]
