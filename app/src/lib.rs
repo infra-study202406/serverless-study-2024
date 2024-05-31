@@ -42,11 +42,11 @@ pub mod handler {
             _ => "引き分けです。",
         };
 
-        let response = Response {
-            message: format!("あなたは{first_name}、私は{computer_choice}"),
-        };
+        // let response = Response {
+        //     message: format!("あなたは{first_name}、私は{computer_choice}"),
+        // };
 
-        Ok(json!({"message": response.message, "result": result}))
+        Ok(json!({"user_choice": first_name, "computer_choice":computer_choice "result": result}))
     }
 
     #[cfg(test)]
