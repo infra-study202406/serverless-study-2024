@@ -43,7 +43,7 @@ pub mod handler {
         };
 
         let response = Response {
-            message: format!("あなたは{first_name}、私は{computer_choice}です"),
+            message: format!("あなたは{first_name}、私は{computer_choice}"),
         };
 
         Ok(
