@@ -59,7 +59,7 @@ pub mod handler {
         #[tokio::test]
         async fn handler_test() {
             let name = LambdaEventPayload {
-                first_name: "test_man".to_string(),
+                first_name: 1,
             };
             let result = execute(name).await;
             assert!(result.is_ok());
