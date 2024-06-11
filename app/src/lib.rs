@@ -43,7 +43,7 @@ pub mod handler {
         };
 
         let response = Response {
-            message: format!("あなたは{first_name}、私は{computer_choice}です"),
+            message: format!("あなたは{first_name}、私は{computer_choice}"),
         };
 
         Ok(
@@ -59,7 +59,7 @@ pub mod handler {
         #[tokio::test]
         async fn handler_test() {
             let name = LambdaEventPayload {
-                first_name: "test_man".to_string(),
+                first_name: "ぐー".to_string(),
             };
             let result = execute(name).await;
             assert!(result.is_ok());
